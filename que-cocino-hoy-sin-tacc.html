@@ -1,0 +1,2275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Qué cocino hoy? Fácil Sin TACC — Recetario Completo — Solution Makers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Work+Sans:wght@400;500;600;700;800&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FBF3E3;
+  --cream-2:#F5EAD3;
+  --forest:#2E4632;
+  --forest-2:#233626;
+  --brick:#A8461E;
+  --brick-2:#8C3717;
+  --yolk:#E8A93D;
+  --sage:#7C9473;
+  --charcoal:#2A2420;
+  --cardwhite:#FFFDF8;
+  --line:rgba(42,36,32,0.14);
+  --shadow: 0 12px 30px -14px rgba(42,36,32,0.35);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--cream);
+  color:var(--charcoal);
+  font-family:'Work Sans', sans-serif;
+  line-height:1.55;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(42,36,32,0.05) 1px, transparent 0);
+  background-size:22px 22px;
+  pointer-events:none;
+  z-index:0;
+}
+h1,h2,h3,h4{ font-family:'Fraunces', serif; color:var(--forest-2); letter-spacing:-0.01em; }
+.script{ font-family:'Caveat', cursive; }
+a{color:inherit;}
+button{font-family:inherit; cursor:pointer;}
+::selection{ background:var(--yolk); color:var(--charcoal); }
+@media (prefers-reduced-motion: reduce){ *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;} }
+
+/* ---------- TOPBAR ---------- */
+.topbar{
+  position:sticky; top:0; z-index:50;
+  background:rgba(251,243,227,0.94);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:1180px; margin:0 auto; padding:12px 24px 10px;
+}
+.topbar-row1{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:10px;}
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand-mark{
+  width:38px; height:38px; border-radius:10px; background:var(--forest);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--cream); font-family:'Fraunces',serif; font-weight:700; font-size:18px;
+  transform:rotate(-4deg);
+  box-shadow: 3px 3px 0 var(--yolk);
+  flex:none;
+}
+.brand-text{ font-size:13px; line-height:1.15; }
+.brand-text b{ display:block; font-family:'Fraunces',serif; font-size:16px; color:var(--forest-2); }
+.brand-text span{ color:var(--brick); font-weight:600; letter-spacing:.03em; text-transform:uppercase; font-size:10.5px; }
+
+.book-tabs{ display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; }
+.book-tabs::-webkit-scrollbar{display:none;}
+.book-btn{
+  border:1px solid var(--line); background:var(--cardwhite); border-radius:10px;
+  padding:7px 13px; text-align:left; white-space:nowrap; opacity:.72; transition:.2s;
+  display:flex; flex-direction:column; gap:1px; flex:none;
+}
+.book-btn b{ font-family:'Fraunces',serif; font-size:12.5px; color:var(--forest-2); font-weight:700;}
+.book-btn span{ font-size:10px; color:#8A7C6A; }
+.book-btn:hover{ opacity:.9; }
+.book-btn.active{ background:var(--forest); border-color:var(--forest); opacity:1; }
+.book-btn.active b{ color:#fff; }
+.book-btn.active span{ color:#CBDBCB; }
+
+.tabs{ display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{
+  border:none; background:transparent; padding:7px 12px; border-radius:8px;
+  font-size:12.5px; font-weight:600; color:var(--charcoal); white-space:nowrap;
+  display:flex; align-items:center; gap:6px; opacity:.55; transition:.2s; flex:none;
+}
+.tab-btn .n{ font-family:'Fraunces',serif; font-weight:700; color:var(--brick); font-size:11px; }
+.tab-btn:hover{ opacity:.85; }
+.tab-btn.active{ background:var(--sage); color:#fff; opacity:1; }
+.tab-btn.active .n{ color:#fff; }
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative; z-index:1;
+  max-width:1180px; margin:0 auto; padding:56px 24px 40px;
+  display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:center;
+}
+.hero-eyebrow{
+  font-family:'Caveat',cursive; font-size:22px; color:var(--brick); font-weight:600;
+  display:flex; align-items:center; gap:8px; margin-bottom:6px;
+}
+.hero h1{
+  font-size:clamp(34px,5vw,58px); line-height:0.98; font-weight:900;
+  margin-bottom:16px;
+}
+.hero h1 em{ font-style:italic; color:var(--brick); font-weight:600; }
+.hero p.lead{ font-size:16.5px; max-width:48ch; color:#463A31; margin-bottom:22px; }
+.hero-cta{ display:flex; gap:12px; flex-wrap:wrap; }
+.btn{
+  border:none; border-radius:999px; padding:13px 24px; font-weight:700; font-size:14.5px;
+  display:inline-flex; align-items:center; gap:8px; transition:transform .18s ease, box-shadow .18s ease;
+}
+.btn-primary{ background:var(--brick); color:#fff; box-shadow:0 8px 0 var(--brick-2); }
+.btn-primary:hover{ transform:translateY(-2px); }
+.btn-primary:active{ transform:translateY(2px); box-shadow:0 4px 0 var(--brick-2); }
+.btn-ghost{ background:transparent; color:var(--forest-2); border:2px solid var(--forest-2); }
+.btn-ghost:hover{ background:var(--forest-2); color:var(--cream); }
+
+.typewrap{
+  font-family:'Fraunces',serif; font-weight:600; font-style:italic; color:var(--forest);
+  font-size:clamp(19px,2.2vw,25px); min-height:1.4em; border-bottom:3px solid var(--yolk); display:inline-block; padding-bottom:2px;
+}
+.cursor-blink{ animation:blink 1s step-end infinite; }
+@keyframes blink{ 50%{ opacity:0; } }
+
+.hero-card{
+  position:relative; background:var(--cardwhite); border-radius:6px;
+  box-shadow:var(--shadow); padding:26px 24px 22px; transform:rotate(2.2deg);
+  border:1px solid var(--line);
+}
+.hero-card::before{
+  content:""; position:absolute; top:-10px; left:24px; right:24px; height:20px;
+  background:repeating-linear-gradient(90deg, transparent 0 10px, rgba(42,36,32,0.12) 10px 11px);
+  border-radius:6px 6px 0 0;
+}
+.hero-card .tag{
+  position:absolute; top:-16px; right:22px; background:var(--yolk); color:var(--charcoal);
+  font-family:'Fraunces',serif; font-weight:700; font-size:12px; padding:5px 12px; border-radius:4px;
+  box-shadow:2px 2px 0 rgba(42,36,32,0.18);
+  transform:rotate(-3deg);
+}
+.hero-card h4{ font-size:19px; margin-bottom:10px; }
+.hero-card ul{ list-style:none; font-size:14px; color:#463A31; }
+.hero-card li{ padding:5px 0; border-bottom:1px dashed var(--line); display:flex; justify-content:space-between; }
+.hero-card li:last-child{ border-bottom:none; }
+.hero-card li b{ color:var(--forest); }
+
+@media (max-width:860px){
+  .hero{ grid-template-columns:1fr; padding-top:30px; }
+  .hero-card{ transform:none; max-width:340px; }
+}
+
+/* ---------- BOOK DIVIDER ---------- */
+.book-divider{
+  position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:86px 24px 26px; text-align:center;
+  border-top:1px solid var(--line);
+}
+.book-divider .num-badge{
+  display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%;
+  background:var(--yolk); color:var(--charcoal); font-family:'Fraunces',serif; font-weight:800; font-size:18px; margin-bottom:16px;
+  box-shadow:3px 3px 0 rgba(42,36,32,0.15);
+}
+.book-divider .kicker{ font-family:'Caveat',cursive; color:var(--brick); font-size:20px; margin-bottom:4px; display:block; }
+.book-divider h2{ font-size:clamp(28px,4vw,44px); }
+.book-divider p{ color:#463A31; max-width:52ch; margin:14px auto 0; font-size:15px; }
+
+/* ---------- SECTION SHELL ---------- */
+section.chapter{
+  position:relative; z-index:1;
+  max-width:1180px; margin:0 auto; padding:56px 24px;
+  scroll-margin-top:118px;
+}
+.ch-head{ display:flex; align-items:flex-end; gap:18px; margin-bottom:36px; flex-wrap:wrap; }
+.ch-num{
+  font-family:'Fraunces',serif; font-weight:900; font-size:52px; color:var(--yolk);
+  -webkit-text-stroke:1.5px var(--forest-2); line-height:.8;
+}
+.ch-title-block .eyebrow{
+  text-transform:uppercase; letter-spacing:.12em; font-size:11.5px; font-weight:700; color:var(--brick); margin-bottom:6px;
+}
+.ch-title-block h2{ font-size:clamp(24px,3.2vw,34px); }
+
+/* ---------- CH1 BIENVENIDA ---------- */
+.welcome-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start; }
+.welcome-grid p{ font-size:16px; color:#463A31; margin-bottom:14px; }
+.pull{
+  font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:22px;
+  color:var(--forest); border-left:3px solid var(--brick); padding-left:18px; margin:20px 0;
+}
+.people-cards{ display:grid; gap:16px; }
+.people-card{
+  background:var(--cardwhite); border:1px solid var(--line); border-radius:14px; padding:20px;
+  box-shadow:var(--shadow); display:flex; gap:14px; align-items:flex-start;
+}
+.people-avatar{
+  width:52px; height:52px; border-radius:50%; flex:none;
+  display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; color:#fff; font-size:19px;
+}
+.people-card h5{ font-family:'Fraunces',serif; font-size:16px; margin-bottom:2px; color:var(--forest-2); }
+.people-card span{ font-size:12.5px; color:var(--brick); font-weight:600; }
+.people-card p{ font-size:13.8px; color:#463A31; margin-top:6px; }
+
+.pillars{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:36px; }
+.pillar{
+  background:var(--forest); color:var(--cream); border-radius:14px; padding:22px 20px;
+  position:relative; overflow:hidden;
+}
+.pillar h5{ font-family:'Fraunces',serif; color:var(--yolk); font-size:16.5px; margin-bottom:8px; }
+.pillar p{ font-size:13.5px; color:#DCE6DC; }
+@media (max-width:860px){ .welcome-grid{grid-template-columns:1fr;} .pillars{grid-template-columns:1fr;} }
+
+/* ---------- ALERTS / RULES ---------- */
+.alert-box{
+  background:#FBEAE2; border:1.5px solid var(--brick); border-radius:14px; padding:22px 24px;
+  display:flex; gap:16px; margin-bottom:34px;
+}
+.alert-box .ico{ font-size:26px; flex:none; }
+.alert-box h4{ color:var(--brick-2); font-size:17px; margin-bottom:6px; }
+.alert-box p{ font-size:14.5px; color:#5A2E1C; }
+
+.rules-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:42px; }
+.rule-card{
+  background:var(--cardwhite); border:1px solid var(--line); border-radius:14px; padding:20px;
+  box-shadow:var(--shadow);
+}
+.rule-card .num{ font-family:'Fraunces',serif; font-weight:800; color:var(--sage); font-size:26px; }
+.rule-card h5{ font-size:15.5px; margin:8px 0 6px; color:var(--forest-2); }
+.rule-card p{ font-size:13.5px; color:#463A31; }
+@media (max-width:860px){ .rules-grid{grid-template-columns:1fr;} }
+
+/* semaforo game */
+.game-panel{
+  background:var(--forest); border-radius:20px; padding:34px 28px; color:var(--cream);
+  position:relative; overflow:hidden;
+}
+.game-panel h3{ color:#fff; font-size:23px; margin-bottom:6px; }
+.game-panel p.sub{ color:#CBDBCB; font-size:14px; margin-bottom:22px; max-width:56ch; }
+.score-pill{
+  position:absolute; top:28px; right:28px; background:var(--yolk); color:var(--charcoal);
+  font-weight:800; font-size:13.5px; padding:8px 16px; border-radius:999px;
+}
+.game-board{ display:grid; grid-template-columns:1fr; gap:10px; max-width:560px; }
+.ingredient-row{
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.14); border-radius:12px; padding:12px 16px;
+  transition:.2s;
+}
+.ingredient-row .name{ font-weight:600; font-size:14.5px; }
+.game-choices{ display:flex; gap:8px; }
+.choice-btn{
+  border:1.5px solid rgba(255,255,255,0.3); background:transparent; color:#fff; border-radius:8px;
+  padding:7px 13px; font-size:12.5px; font-weight:700;
+}
+.choice-btn:hover{ background:rgba(255,255,255,0.14); }
+.ingredient-row.correct{ background:rgba(124,148,115,0.35); border-color:var(--sage); }
+.ingredient-row.wrong{ background:rgba(168,70,30,0.35); border-color:var(--brick); }
+.ingredient-row .result{ font-size:12px; font-weight:700; min-width:120px; text-align:right; }
+.game-reset{ margin-top:20px; font-size:13px; text-decoration:underline; background:none; color:var(--yolk); border:none; font-weight:700;}
+
+/* despensa checklist */
+.checklist-wrap{ margin-top:46px; }
+.checklist{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:18px; }
+.check-item{
+  display:flex; align-items:center; gap:12px; background:var(--cardwhite); border:1px solid var(--line);
+  border-radius:10px; padding:12px 14px; font-size:14px; cursor:pointer; user-select:none; transition:.15s;
+}
+.check-item:hover{ border-color:var(--sage); }
+.check-item input{ width:18px; height:18px; accent-color:var(--forest); flex:none; }
+.check-item.done{ background:#EEF2E9; }
+.check-item.done .txt{ text-decoration:line-through; color:#7C7264; }
+.progress-bar{ height:10px; background:var(--cream-2); border-radius:999px; overflow:hidden; margin-top:16px; border:1px solid var(--line); }
+.progress-fill{ height:100%; background:linear-gradient(90deg,var(--sage),var(--forest)); width:0%; transition:width .4s ease; }
+.progress-label{ font-size:12.5px; color:var(--brick); font-weight:700; margin-top:8px; }
+@media (max-width:700px){ .checklist{ grid-template-columns:1fr; } }
+
+/* ---------- RECIPES ---------- */
+.recipe-intro{ max-width:70ch; font-size:15.5px; color:#463A31; margin-bottom:34px; }
+.recipe-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:26px; }
+@media (max-width:860px){ .recipe-grid{ grid-template-columns:1fr; } }
+
+.recipe-card{
+  background:var(--cardwhite); border:1px solid var(--line); border-radius:16px; overflow:hidden;
+  box-shadow:var(--shadow); position:relative;
+}
+.recipe-card .divider-tab{
+  position:absolute; top:0; left:26px; background:var(--brick); color:#fff;
+  font-family:'Fraunces',serif; font-weight:700; font-size:12px; padding:6px 14px 8px;
+  border-radius:0 0 8px 8px;
+}
+.recipe-head{ padding:34px 24px 16px; border-bottom:1px dashed var(--line); }
+.recipe-head h4{ font-size:19px; margin-bottom:6px; }
+.recipe-meta{ display:flex; gap:14px; font-size:12.5px; color:var(--brick); font-weight:700; flex-wrap:wrap; }
+.recipe-meta span{ display:flex; align-items:center; gap:5px; }
+.recipe-body{ padding:20px 24px 24px; }
+.recipe-body h6{ font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:#8A7C6A; margin:14px 0 8px; }
+.recipe-body h6:first-child{ margin-top:0; }
+.ing-list{ list-style:none; font-size:14px; }
+.ing-list li{ padding:5px 0; display:flex; gap:10px; align-items:flex-start; cursor:pointer; }
+.ing-list input{ margin-top:3px; accent-color:var(--forest); }
+.ing-list li.checked .t{ text-decoration:line-through; color:#A79A89; }
+.steps-list{ list-style:none; counter-reset:step; font-size:14px; color:#463A31; }
+.steps-list li{ counter-increment:step; padding:8px 0 8px 34px; position:relative; }
+.steps-list li::before{
+  content:counter(step); position:absolute; left:0; top:6px; width:22px; height:22px; border-radius:50%;
+  background:var(--sage); color:#fff; font-size:11.5px; font-weight:800; display:flex; align-items:center; justify-content:center;
+  font-family:'Work Sans',sans-serif;
+}
+.tip-note{
+  margin-top:16px; background:#FFF6E4; border:1px dashed var(--yolk); border-radius:10px; padding:12px 14px;
+  font-family:'Caveat',cursive; font-size:17px; color:#7A5B1E; line-height:1.3;
+}
+.consv-note{ font-size:12.5px; color:#8A7C6A; margin-top:12px; }
+
+/* insight box (secretos, tips estructurales del libro) */
+.insight-box{
+  background:var(--cream-2); border:1px dashed var(--line); border-radius:14px; padding:18px 20px; margin-bottom:30px;
+}
+.insight-box h6{ font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--brick); margin-bottom:10px; font-weight:700; }
+.insight-box ul{ list-style:none; font-size:13.8px; color:#463A31; display:grid; gap:8px; }
+.insight-box li b{ color:var(--forest-2); }
+.insight-grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+@media (max-width:700px){ .insight-grid-2{ grid-template-columns:1fr; } }
+
+.stat-row{ display:flex; gap:14px; margin-bottom:30px; flex-wrap:wrap; }
+.stat-chip{ background:var(--forest); color:#fff; border-radius:12px; padding:12px 20px; text-align:center; min-width:96px; }
+.stat-chip b{ display:block; font-family:'Fraunces',serif; font-size:21px; color:var(--yolk); }
+.stat-chip span{ font-size:10.5px; color:#CBDBCB; text-transform:uppercase; letter-spacing:.05em; }
+
+/* ---------- ORGANIZACIÓN / CIERRE ---------- */
+.closing{
+  background:var(--forest); color:var(--cream); border-radius:22px; padding:54px 42px; text-align:center; margin-top:20px;
+  position:relative; overflow:hidden;
+}
+.closing h3{ color:#fff; font-size:clamp(24px,3.6vw,34px); margin-bottom:14px; }
+.closing p{ color:#D9E5D6; max-width:60ch; margin:0 auto 26px; font-size:15.5px; }
+.closing .sign{ font-family:'Caveat',cursive; font-size:30px; color:var(--yolk); margin-top:18px; }
+
+footer{
+  text-align:center; padding:34px 24px 50px; font-size:12.5px; color:#8A7C6A; position:relative; z-index:1;
+}
+
+/* animations on scroll */
+.reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.in{ opacity:1; transform:none; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-row1">
+      <div class="brand">
+        <div class="brand-mark">R</div>
+        <div class="brand-text"><b>Qué cocino hoy</b><span>Solution Makers · 4 libros</span></div>
+      </div>
+      <div class="book-tabs" id="bookTabs">
+        <button class="book-btn active" data-book="b1"><b>Libro 01</b><span>Desayunos y Meriendas</span></button>
+        <button class="book-btn" data-book="b2"><b>Libro 02</b><span>Dulce y Salado</span></button>
+        <button class="book-btn" data-book="b3"><b>Libro 03</b><span>Platos Caseros</span></button>
+        <button class="book-btn" data-book="b4"><b>Libro 04</b><span>Snacks y Dips</span></button>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs"></nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div>
+    <div class="hero-eyebrow">✒️ La colección completa de Romina — Solution Makers</div>
+    <h1>¿Qué cocino <em>hoy</em>?<br>Fácil Sin TACC.</h1>
+    <p class="lead">Cuatro libros, un solo recetario: desayunos, meriendas, almuerzos, cenas, snacks y dips. Todo simple, casero y 100% sin gluten. Sin tecnicismos. Sin recetas imposibles.</p>
+    <div class="hero-cta">
+      <a href="#b1-ch1" class="btn btn-primary">Empezar por el Libro 01 →</a>
+      <a href="#b1-ch2game" class="btn btn-ghost">Jugar al semáforo Sin TACC</a>
+    </div>
+    <div style="margin-top:28px;">
+      Hoy podrías cocinar: <span class="typewrap" id="typewrap"></span><span class="cursor-blink">|</span>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="tag">100% Sin TACC</div>
+    <h4>Ficha rápida del recetario</h4>
+    <ul>
+      <li><span>Autora</span> <b>Romina</b></li>
+      <li><span>Libros incluidos</span> <b>4</b></li>
+      <li><span>Capítulos totales</span> <b>20</b></li>
+      <li><span>Recetas y preparaciones</span> <b>40</b></li>
+      <li><span>Nivel</span> <b>Sin complicaciones</b></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- LIBRO 1 — ¿QUÉ COCINO HOY? FÁCIL SIN TACC                     -->
+<!-- ============================================================ -->
+
+<section class="chapter" id="b1-ch1" data-book="b1">
+  <div class="ch-head reveal">
+    <div class="ch-num">01</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 01 · Capítulo 01</div>
+      <h2>Bienvenida y Filosofía</h2>
+    </div>
+  </div>
+
+  <div class="welcome-grid">
+    <div class="reveal">
+      <p>Hola, soy <b>Romina</b>. Como madre y emprendedora, entiendo que la cocina debe ser un refugio y no una carga adicional en nuestra rutina diaria.</p>
+      <p class="pull">"Cocina con propósito: un enfoque cercano y práctico para tu día a día."</p>
+      <p>En <b>Solution Makers</b> creemos que la simplicidad es la clave para una vida más organizada. Este libro nació para que disfrutes de comer rico sin las complicaciones del gluten.</p>
+      <p>Aquí no vas a encontrar tecnicismos innecesarios ni recetas imposibles. Solo propuestas honestas para que cocinar Sin TACC sea una experiencia placentera y natural en tu hogar.</p>
+    </div>
+    <div class="people-cards reveal">
+      <div class="people-card">
+        <div class="people-avatar" style="background:var(--brick);">R</div>
+        <div>
+          <h5>Romina, tu guía</h5>
+          <span>Madre y apasionada por la organización doméstica</span>
+          <p>Convirtió la necesidad de cocinar sin gluten en su propia familia en un método simple que hoy comparte con vos.</p>
+        </div>
+      </div>
+      <div class="people-card">
+        <div class="people-avatar" style="background:var(--forest);">SM</div>
+        <div>
+          <h5>Solution Makers</h5>
+          <span>Soluciones digitales para lo cotidiano</span>
+          <p>Creamos herramientas y contenidos pensados para resolver problemas reales del día a día del hogar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pillars reveal">
+    <div class="pillar">
+      <h5>🍽️ Simplicidad real</h5>
+      <p>Ingredientes que ya conocés, pasos claros, sin vueltas.</p>
+    </div>
+    <div class="pillar">
+      <h5>🏡 Cocina como refugio</h5>
+      <p>Que cocinar sume calma a tu rutina, no que te la quite.</p>
+    </div>
+    <div class="pillar">
+      <h5>💛 Honestidad ante todo</h5>
+      <p>Nada de promesas imposibles: recetas que funcionan de verdad.</p>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="b1-ch2" data-book="b1">
+  <div class="ch-head reveal">
+    <div class="ch-num">02</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 01 · Capítulo 02</div>
+      <h2>Fundamentos Sin TACC</h2>
+    </div>
+  </div>
+
+  <p class="recipe-intro reveal">Cocinar sin gluten requiere orden y cuidado. Lo más importante es evitar la contaminación cruzada para garantizar un entorno seguro en tu cocina.</p>
+
+  <div class="alert-box reveal">
+    <div class="ico">⚠️</div>
+    <div>
+      <h4>Alerta de seguridad</h4>
+      <p>La contaminación cruzada ocurre incluso con migas invisibles. Lavá siempre a fondo superficies y utensilios de madera antes de empezar.</p>
+    </div>
+  </div>
+
+  <p class="recipe-intro reveal" style="margin-bottom:26px;">Mantener tus utensilios y espacios limpios es el primer paso. No necesitás una cocina industrial, solo hábitos conscientes y dedicados a tu bienestar.</p>
+
+  <div class="rules-grid reveal" style="grid-template-columns:repeat(4,1fr);">
+    <div class="rule-card">
+      <div class="num">✓</div>
+      <h5>Superficies impecables</h5>
+      <p>Mantené siempre limpias las mesadas antes de empezar a cocinar.</p>
+    </div>
+    <div class="rule-card">
+      <div class="num">✓</div>
+      <h5>Utensilios exclusivos</h5>
+      <p>Usá utensilios reservados solo para tus preparaciones Sin TACC.</p>
+    </div>
+    <div class="rule-card">
+      <div class="num">✓</div>
+      <h5>Frascos cerrados</h5>
+      <p>Almacená tus ingredientes en frascos herméticos y bien identificados.</p>
+    </div>
+    <div class="rule-card">
+      <div class="num">✓</div>
+      <h5>Verificá etiquetas</h5>
+      <p>Confirmá siempre que los productos estén libres de TACC antes de usarlos.</p>
+    </div>
+  </div>
+
+  <div class="alert-box reveal" style="background:#EEF2E9; border-color:var(--sage);">
+    <div class="ico">🌾</div>
+    <div>
+      <h4 style="color:var(--forest-2);">Tus tres pilares de despensa</h4>
+      <p style="color:#3A4A38;">Tené siempre a mano ingredientes básicos como <b>harina de arroz</b>, <b>fécula de maíz</b> y <b>almidón de mandioca</b>. Con estos tres pilares, vas a poder preparar casi cualquier receta de este libro.</p>
+    </div>
+  </div>
+
+  <div class="game-panel reveal" id="b1-ch2game" style="margin-top:20px;">
+    <div class="score-pill" id="scorePill">Aciertos: 0 / 0</div>
+    <h3>🚦 Semáforo Sin TACC</h3>
+    <p class="sub">Clasificá cada ingrediente: ¿es naturalmente Sin TACC o hay que revisarlo con lupa? Tocá "Sí" o "Revisar" y mirá el resultado al instante.</p>
+    <div class="game-board" id="gameBoard"></div>
+    <button class="game-reset" id="gameReset">Reiniciar juego</button>
+  </div>
+
+  <div class="checklist-wrap reveal">
+    <h3 style="font-size:22px;">✅ Tu despensa segura</h3>
+    <p style="color:#463A31; font-size:14.5px; margin-top:6px;">Marcá lo que ya tenés resuelto en tu cocina.</p>
+    <div class="checklist" id="checklist">
+      <label class="check-item"><input type="checkbox"><span class="txt">Tostadora o sandwichera exclusiva Sin TACC</span></label>
+      <label class="check-item"><input type="checkbox"><span class="txt">Tabla de cortar de color diferenciado</span></label>
+      <label class="check-item"><input type="checkbox"><span class="txt">Harinas guardadas en frascos etiquetados</span></label>
+      <label class="check-item"><input type="checkbox"><span class="txt">Colador y utensilios de pastas propios</span></label>
+      <label class="check-item"><input type="checkbox"><span class="txt">Zona de mesada limpia antes de cocinar</span></label>
+      <label class="check-item"><input type="checkbox"><span class="txt">Hábito de leer etiquetas antes de comprar</span></label>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">0% de tu cocina lista</div>
+  </div>
+</section>
+
+<section class="chapter" id="b1-ch3" data-book="b1">
+  <div class="ch-head reveal">
+    <div class="ch-num">03</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 01 · Capítulo 03</div>
+      <h2>Desayunos y Meriendas — Parte I</h2>
+    </div>
+  </div>
+  <p class="recipe-intro reveal">Comenzar el día con algo rico es fundamental. Estos son tus primeros aliados: el pan brioche y el pan de molde como base de tu despensa semanal, y scones, muffins y galletitas para sumar variedad a tus mañanas y meriendas.</p>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 01</div>
+      <div class="recipe-head">
+        <h4>Pan Brioche Dulce Sin TACC con Miel</h4>
+        <div class="recipe-meta"><span>⏱ 45 min levado + 30 min horno</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Este pan brioche es el abrazo que necesitás en un desayuno lento. Su miga tierna y ese toque sutil de miel lo convierten en el protagonista indiscutible de tus mañanas.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">300 g premezcla sin TACC</span></li>
+          <li><input type="checkbox"><span class="t">50 g azúcar</span></li>
+          <li><input type="checkbox"><span class="t">2 huevos</span></li>
+          <li><input type="checkbox"><span class="t">50 g manteca pomada</span></li>
+          <li><input type="checkbox"><span class="t">1 cda miel</span></li>
+          <li><input type="checkbox"><span class="t">10 g levadura seca</span></li>
+          <li><input type="checkbox"><span class="t">100 ml leche tibia</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Disolver la levadura en la leche tibia con la miel.</li>
+          <li>Mezclar los secos y añadir los huevos junto con la levadura activada.</li>
+          <li>Incorporar la manteca y amasar hasta obtener una masa lisa.</li>
+          <li>Colocar en molde y dejar levar por 45 minutos.</li>
+          <li>Hornear a 180°C por 30 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: pincelá la superficie con un poco de huevo batido antes de hornear para lograr ese dorado brillante profesional.</div>
+        <p class="consv-note">Conservación: consumir en 48 horas. Se puede frizar rebanado hasta por 30 días.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 02</div>
+      <div class="recipe-head">
+        <h4>Pan de Molde Sin TACC Súper Esponjoso</h4>
+        <div class="recipe-meta"><span>⏱ Levado + 40 min horno</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Olvidate de los panes que se desarman. Esta versión es firme, esponjosa y perfecta para tus tostadas de cada día.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">400 g premezcla</span></li>
+          <li><input type="checkbox"><span class="t">3 huevos</span></li>
+          <li><input type="checkbox"><span class="t">200 ml agua tibia</span></li>
+          <li><input type="checkbox"><span class="t">1 cdita goma xántica</span></li>
+          <li><input type="checkbox"><span class="t">10 g levadura</span></li>
+          <li><input type="checkbox"><span class="t">Sal a gusto</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Mezclar todos los ingredientes secos en un bol grande.</li>
+          <li>Agregar los líquidos y batir enérgicamente por 5 minutos.</li>
+          <li>Verter en un molde rectangular enmantecado.</li>
+          <li>Dejar levar hasta duplicar su volumen.</li>
+          <li>Hornear a 200°C durante 40 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: si la masa está muy pegajosa, humedecé tus manos con un poco de aceite para darle forma sin esfuerzo.</div>
+        <p class="consv-note">Conservación: guardá en recipiente hermético. Es ideal para congelar en rodajas individuales.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 03</div>
+      <div class="recipe-head">
+        <h4>Scones de Queso</h4>
+        <div class="recipe-meta"><span>⏱ 200°C / 15 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Estos scones son la solución perfecta para cuando querés algo salado y rápido. Crujientes por fuera y suaves por dentro.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">250 g premezcla</span></li>
+          <li><input type="checkbox"><span class="t">100 g queso en hebras</span></li>
+          <li><input type="checkbox"><span class="t">50 g manteca fría</span></li>
+          <li><input type="checkbox"><span class="t">1 huevo</span></li>
+          <li><input type="checkbox"><span class="t">50 ml leche</span></li>
+          <li><input type="checkbox"><span class="t">1 cda polvo de hornear</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Unir la premezcla con la manteca fría hasta lograr un arenado.</li>
+          <li>Agregar el queso, el huevo y la leche.</li>
+          <li>Formar un bollo y estirar de 2 cm de espesor.</li>
+          <li>Cortar círculos y llevar al horno a 200°C por 15 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: no trabajes demasiado la masa con las manos para que la manteca no se derrita y el scone quede bien aireado.</div>
+        <p class="consv-note">Conservación: ideales frescos. Guardalos en papel aluminio y recalentá en horno unos minutos.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 04</div>
+      <div class="recipe-head">
+        <h4>Muffins Salados</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 20 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Ideales para llevar al trabajo o disfrutar en una tarde ocupada. Podés personalizarlos con tus vegetales favoritos.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">200 g harina de arroz</span></li>
+          <li><input type="checkbox"><span class="t">2 huevos</span></li>
+          <li><input type="checkbox"><span class="t">Queso crema, cantidad necesaria</span></li>
+          <li><input type="checkbox"><span class="t">50 g espinaca picada</span></li>
+          <li><input type="checkbox"><span class="t">1 cdita polvo de hornear</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Batir los huevos con el queso crema.</li>
+          <li>Incorporar la harina, el polvo de hornear y la espinaca.</li>
+          <li>Verter en moldes de muffins.</li>
+          <li>Hornear a 180°C por 20 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: probá añadir trocitos de jamón cocido para darles un toque extra de sabor.</div>
+        <p class="consv-note">Conservación: se mantienen perfectos en heladera hasta 3 días. Podés frizarlos perfectamente.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 05</div>
+      <div class="recipe-head">
+        <h4>Galletitas de Vainilla</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 12 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Las clásicas galletitas que todos amamos, ahora sin gluten. El acompañante perfecto para una taza de té bien caliente.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">200 g premezcla</span></li>
+          <li><input type="checkbox"><span class="t">80 g azúcar</span></li>
+          <li><input type="checkbox"><span class="t">50 g manteca</span></li>
+          <li><input type="checkbox"><span class="t">1 huevo</span></li>
+          <li><input type="checkbox"><span class="t">1 cdita esencia de vainilla</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Batir manteca y azúcar. Sumar huevo y vainilla.</li>
+          <li>Agregar la harina hasta formar una masa.</li>
+          <li>Formar bolitas y aplastar sobre placa.</li>
+          <li>Hornear a 180°C por 12 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: si la masa se pega, dejala descansar 20 minutos en la heladera antes de darle forma.</div>
+        <p class="consv-note">Conservación: en frasco hermético duran hasta una semana.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b1-ch4" data-book="b1">
+  <div class="ch-head reveal">
+    <div class="ch-num">04</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 01 · Capítulo 04</div>
+      <h2>Desayunos y Meriendas — Parte II</h2>
+    </div>
+  </div>
+  <p class="recipe-intro reveal">Seguimos con delicias que endulzan la vida: opciones rápidas para calmar los antojos de forma natural, ideales para quienes buscan algo más energético y reconfortante.</p>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 06</div>
+      <div class="recipe-head">
+        <h4>Cookies con Chips de Chocolate</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 15 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Irresistibles y muy fáciles de hacer. La combinación de la masa tierna con el chocolate fundido es un éxito garantizado.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">250 g harina premezcla</span></li>
+          <li><input type="checkbox"><span class="t">100 g manteca</span></li>
+          <li><input type="checkbox"><span class="t">100 g azúcar mascabo</span></li>
+          <li><input type="checkbox"><span class="t">1 huevo</span></li>
+          <li><input type="checkbox"><span class="t">100 g chips de chocolate</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Acremar manteca y azúcar.</li>
+          <li>Incorporar el huevo y la harina.</li>
+          <li>Sumar los chips al final.</li>
+          <li>Hornear a 180°C por 15 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: no las cocines de más; deben salir del horno apenas doradas en los bordes para que sigan húmedas.</div>
+        <p class="consv-note">Conservación: podés congelar las bolitas de masa cruda y hornear al momento del antojo.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 07</div>
+      <div class="recipe-head">
+        <h4>Budín de Limón</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 40 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Un clásico que nunca falla. Es húmedo, cítrico y tiene un aroma que inunda toda la casa al hornearse.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">200 g premezcla</span></li>
+          <li><input type="checkbox"><span class="t">150 g azúcar</span></li>
+          <li><input type="checkbox"><span class="t">3 huevos</span></li>
+          <li><input type="checkbox"><span class="t">80 g aceite de girasol</span></li>
+          <li><input type="checkbox"><span class="t">Ralladura de 2 limones</span></li>
+          <li><input type="checkbox"><span class="t">1 cdita polvo de hornear</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Batir huevos y azúcar hasta blanquear.</li>
+          <li>Sumar aceite y ralladura.</li>
+          <li>Incorporar los secos tamizados.</li>
+          <li>Hornear en molde aceitado a 180°C por 40 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: agregá un almíbar de limón sobre el budín caliente para potenciar el sabor cítrico.</div>
+        <p class="consv-note">Conservación: envuelto en film se mantiene húmedo por 4 días.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 08</div>
+      <div class="recipe-head">
+        <h4>Brownie de Chocolate</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 25 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">La receta definitiva para los amantes del chocolate. Intenso, húmedo y con esa costra crujiente que buscamos.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">150 g chocolate cobertura</span></li>
+          <li><input type="checkbox"><span class="t">100 g manteca</span></li>
+          <li><input type="checkbox"><span class="t">200 g azúcar</span></li>
+          <li><input type="checkbox"><span class="t">3 huevos</span></li>
+          <li><input type="checkbox"><span class="t">80 g premezcla</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Derretir chocolate y manteca.</li>
+          <li>Batir huevos con azúcar e integrar al chocolate.</li>
+          <li>Agregar harina y mezclar.</li>
+          <li>Hornear a 180°C por 25 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: cortá el brownie cuando esté completamente frío para que los bordes queden perfectos.</div>
+        <p class="consv-note">Conservación: se conserva muy bien en la heladera y es delicioso servido frío.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 09</div>
+      <div class="recipe-head">
+        <h4>Granola Casera</h4>
+        <div class="recipe-meta"><span>⏱ 160°C / tostado</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">La forma más sana de empezar el día. Podés ajustar los frutos secos a tu gusto personal.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">200 g avena certificada Sin TACC</span></li>
+          <li><input type="checkbox"><span class="t">50 g almendras picadas</span></li>
+          <li><input type="checkbox"><span class="t">50 g nueces</span></li>
+          <li><input type="checkbox"><span class="t">3 cdas miel</span></li>
+          <li><input type="checkbox"><span class="t">2 cdas aceite</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Mezclar todo en un bol.</li>
+          <li>Esparcir en placa para horno.</li>
+          <li>Tostar a 160°C moviendo cada 5 minutos.</li>
+        </ol>
+        <p class="consv-note">Conservación: en frasco de vidrio bien cerrado dura hasta un mes.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 10</div>
+      <div class="recipe-head">
+        <h4>Barritas de Avena, Frutos Secos y Chocolate</h4>
+        <div class="recipe-meta"><span>⏱ 2 h heladera</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Tu snack de emergencia. Son nutritivas, saciantes y perfectas para llevar en el bolso.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">150 g avena Sin TACC</span></li>
+          <li><input type="checkbox"><span class="t">50 g semillas variadas</span></li>
+          <li><input type="checkbox"><span class="t">50 g dátiles triturados</span></li>
+          <li><input type="checkbox"><span class="t">50 g chocolate amargo</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Procesar los dátiles con la avena.</li>
+          <li>Unir con las semillas.</li>
+          <li>Compactar en molde, colocar chocolate arriba.</li>
+          <li>Refrigerar 2 horas y cortar.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: si sentís la mezcla muy seca, podés agregar una cucharada de mantequilla de maní para unir mejor.</div>
+        <p class="consv-note">Conservación: guardar en heladera, se mantienen firmes por 10 días.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b1-ch5" data-book="b1">
+  <div class="ch-head reveal">
+    <div class="ch-num">05</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 01 · Capítulo 05</div>
+      <h2>Organización y Despedida</h2>
+    </div>
+  </div>
+
+  <p class="recipe-intro reveal">Cocinar inteligente es la diferencia entre el éxito y el caos. Planificá tu menú semanal, preparé ingredientes en bloque y aprovechá el freezer.</p>
+
+  <div class="rules-grid reveal" style="grid-template-columns:repeat(3,1fr); margin-bottom:10px;">
+    <div class="rule-card">
+      <div class="num">1</div>
+      <h5>Menú semanal</h5>
+      <p>Elegí 3 recetas para la semana y hacé la compra única.</p>
+    </div>
+    <div class="rule-card">
+      <div class="num">2</div>
+      <h5>Cocina en serie</h5>
+      <p>Preparé masas un domingo y horneá por tandas.</p>
+    </div>
+    <div class="rule-card">
+      <div class="num">3</div>
+      <h5>Congelado estratégico</h5>
+      <p>Porcioná antes de guardar para descongelar solo lo necesario.</p>
+    </div>
+  </div>
+
+  <div class="closing reveal">
+    <h3>Gracias por confiar en Solution Makers</h3>
+    <p>Espero que estas recetas acompañen muchos de tus momentos compartidos. Gracias por confiar en Solution Makers para organizar tu cocina y tu vida.</p>
+    <p class="pull" style="color:#fff; border-left-color:var(--yolk); max-width:56ch; margin:22px auto 0; text-align:left;">"La cocina es el corazón de la casa y el lugar donde construimos recuerdos felices."</p>
+    <div class="sign">Con cariño, Romina — Fundadora de Solution Makers</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- LIBRO 2 — RECETARIO SIN TACC: DULCE Y SALADO                  -->
+<!-- ============================================================ -->
+
+<div class="book-divider reveal">
+  <div class="num-badge">02</div>
+  <span class="kicker">El segundo libro de Romina</span>
+  <h2>Recetario Sin TACC: Dulce y Salado</h2>
+  <p>La continuación perfecta para tus días libres de gluten: la versión completa, paso a paso, de tus panes, salados, galletitas, budines y snacks favoritos.</p>
+</div>
+
+<section class="chapter" id="b2-ch1" data-book="b2">
+  <div class="ch-head reveal">
+    <div class="ch-num">01</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 02 · Capítulo 01</div>
+      <h2>Panes caseros y delicias de panadería</h2>
+    </div>
+  </div>
+
+  <div class="insight-grid-2 reveal" style="margin-bottom:30px;">
+    <div class="insight-box">
+      <h6>Secretos del horneado</h6>
+      <ul>
+        <li><b>Temperatura justa:</b> precalentá siempre el horno con antelación para que la levadura actúe correctamente.</li>
+        <li><b>La goma xántica:</b> es fundamental para dar elasticidad a nuestras masas sin gluten.</li>
+      </ul>
+    </div>
+    <div class="insight-box">
+      <h6>Antes de empezar</h6>
+      <ul>
+        <li>✓ Pesado preciso de ingredientes</li>
+        <li>✓ Uso de moldes adecuados</li>
+        <li>✓ Respetar tiempos de leudado</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 01</div>
+      <div class="recipe-head">
+        <h4>Pan Brioche Dulce Sin TACC con Miel</h4>
+        <div class="recipe-meta"><span>⏱ Levado 45 min / 180°C 30 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Este pan brioche es el abrazo que necesitás en un desayuno lento. Su miga tierna y ese toque sutil de miel lo convierten en el protagonista indiscutible de tus mañanas.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">300 g premezcla sin TACC</span></li>
+          <li><input type="checkbox"><span class="t">50 g azúcar</span></li>
+          <li><input type="checkbox"><span class="t">2 huevos</span></li>
+          <li><input type="checkbox"><span class="t">50 g manteca pomada</span></li>
+          <li><input type="checkbox"><span class="t">1 cda miel</span></li>
+          <li><input type="checkbox"><span class="t">10 g levadura seca</span></li>
+          <li><input type="checkbox"><span class="t">100 ml leche tibia</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Disolver la levadura en la leche tibia con la miel.</li>
+          <li>Mezclar los secos y añadir los huevos junto con la levadura activada.</li>
+          <li>Incorporar la manteca y amasar hasta obtener una masa lisa.</li>
+          <li>Colocar en molde y dejar levar por 45 minutos.</li>
+          <li>Hornear a 180°C por 30 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: pincelá la superficie con un poco de huevo batido antes de hornear para lograr ese dorado brillante profesional.</div>
+        <p class="consv-note">Conservación: consumir en 48 horas. Se puede frizar rebanado hasta por 30 días.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 02</div>
+      <div class="recipe-head">
+        <h4>Pan de Molde Sin TACC Súper Esponjoso</h4>
+        <div class="recipe-meta"><span>⏱ Levado + 200°C 40 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Olvidate de los panes que se desarman. Esta versión es firme, esponjosa y perfecta para tus tostadas de cada día.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">400 g premezcla</span></li>
+          <li><input type="checkbox"><span class="t">3 huevos</span></li>
+          <li><input type="checkbox"><span class="t">200 ml agua tibia</span></li>
+          <li><input type="checkbox"><span class="t">1 cdita goma xántica</span></li>
+          <li><input type="checkbox"><span class="t">10 g levadura</span></li>
+          <li><input type="checkbox"><span class="t">Sal a gusto</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Mezclar todos los ingredientes secos en un bol grande.</li>
+          <li>Agregar los líquidos y batir enérgicamente por 5 minutos.</li>
+          <li>Verter en un molde rectangular enmantecado.</li>
+          <li>Dejar levar hasta duplicar su volumen.</li>
+          <li>Hornear a 200°C durante 40 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: si la masa está muy pegajosa, humedecé tus manos con un poco de aceite para darle forma sin esfuerzo.</div>
+        <p class="consv-note">Conservación: guardá en recipiente hermético. Es ideal para congelar en rodajas individuales.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b2-ch2" data-book="b2">
+  <div class="ch-head reveal">
+    <div class="ch-num">02</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 02 · Capítulo 02</div>
+      <h2>Bocados salados y meriendas</h2>
+    </div>
+  </div>
+
+  <div class="insight-box reveal">
+    <h6>El toque salado</h6>
+    <ul>
+      <li><b>Variedad en ingredientes:</b> usá quesos con carácter, como el parmesano, para elevar el sabor de tus masas.</li>
+      <li><b>Cocción rápida:</b> los horneados pequeños se cocinan mucho más velozmente.</li>
+      <li><b>Texturas:</b> la mezcla de harina de arroz da una base neutra excelente.</li>
+    </ul>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 03</div>
+      <div class="recipe-head">
+        <h4>Scones de Queso</h4>
+        <div class="recipe-meta"><span>⏱ 200°C / 15 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Estos scones son la solución perfecta para cuando querés algo salado y rápido. Son crujientes por fuera y suaves por dentro.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">250 g premezcla</span></li>
+          <li><input type="checkbox"><span class="t">100 g queso en hebras</span></li>
+          <li><input type="checkbox"><span class="t">50 g manteca fría</span></li>
+          <li><input type="checkbox"><span class="t">1 huevo</span></li>
+          <li><input type="checkbox"><span class="t">50 ml leche</span></li>
+          <li><input type="checkbox"><span class="t">1 cda polvo de hornear</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Unir la premezcla con la manteca fría hasta lograr un arenado.</li>
+          <li>Agregar el queso, el huevo y la leche.</li>
+          <li>Formar un bollo y estirar de 2 cm de espesor.</li>
+          <li>Cortar círculos y llevar al horno a 200°C por 15 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: no trabajes demasiado la masa con las manos para que la manteca no se derrita y el scone quede bien aireado.</div>
+        <p class="consv-note">Conservación: ideales frescos. Guardalos en papel aluminio y recalentá en horno unos minutos.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 04</div>
+      <div class="recipe-head">
+        <h4>Muffins Salados</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 20 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Ideales para llevar al trabajo o disfrutar en una tarde ocupada. Podés personalizarlos con tus vegetales favoritos.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">200 g harina de arroz</span></li>
+          <li><input type="checkbox"><span class="t">2 huevos</span></li>
+          <li><input type="checkbox"><span class="t">Queso crema, cantidad necesaria</span></li>
+          <li><input type="checkbox"><span class="t">50 g espinaca picada</span></li>
+          <li><input type="checkbox"><span class="t">1 cdita polvo de hornear</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Batir los huevos con el queso crema.</li>
+          <li>Incorporar la harina, el polvo de hornear y la espinaca.</li>
+          <li>Verter en moldes de muffins.</li>
+          <li>Hornear a 180°C por 20 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: probá añadir trocitos de jamón cocido para darles un toque extra de sabor.</div>
+        <p class="consv-note">Conservación: se mantienen perfectos en heladera hasta 3 días. Podés frizarlos perfectamente.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b2-ch3" data-book="b2">
+  <div class="ch-head reveal">
+    <div class="ch-num">03</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 02 · Capítulo 03</div>
+      <h2>Galletitas y dulzuras para el té</h2>
+    </div>
+  </div>
+
+  <div class="stat-row reveal">
+    <div class="stat-chip"><b>12m</b><span>Horneado</span></div>
+    <div class="stat-chip"><b>7d</b><span>Frescura</span></div>
+  </div>
+
+  <div class="insight-box reveal">
+    <h6>Secretos de la repostería</h6>
+    <ul>
+      <li><b>La importancia del batido:</b> acremar la manteca con azúcar es el paso clave para una estructura aireada.</li>
+      <li><b>Control de horno:</b> el horno debe estar estable para que no se deformen las cookies.</li>
+    </ul>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 05</div>
+      <div class="recipe-head">
+        <h4>Galletitas de Vainilla</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 12 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Las clásicas galletitas que todos amamos, ahora sin gluten. Son el acompañante perfecto para una taza de té bien caliente.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">200 g premezcla</span></li>
+          <li><input type="checkbox"><span class="t">80 g azúcar</span></li>
+          <li><input type="checkbox"><span class="t">50 g manteca</span></li>
+          <li><input type="checkbox"><span class="t">1 huevo</span></li>
+          <li><input type="checkbox"><span class="t">1 cdita esencia de vainilla</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Batir manteca y azúcar. Sumar huevo y vainilla.</li>
+          <li>Agregar la harina hasta formar una masa.</li>
+          <li>Formar bolitas y aplastar sobre placa.</li>
+          <li>Hornear a 180°C por 12 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: si la masa se pega, dejala descansar 20 minutos en la heladera antes de darle forma.</div>
+        <p class="consv-note">Conservación: en frasco hermético duran hasta una semana.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 06</div>
+      <div class="recipe-head">
+        <h4>Cookies con Chips de Chocolate</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 15 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Irresistibles y muy fáciles de hacer. La combinación de la masa tierna con el chocolate fundido es un éxito garantizado.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">250 g harina premezcla</span></li>
+          <li><input type="checkbox"><span class="t">100 g manteca</span></li>
+          <li><input type="checkbox"><span class="t">100 g azúcar mascabo</span></li>
+          <li><input type="checkbox"><span class="t">1 huevo</span></li>
+          <li><input type="checkbox"><span class="t">100 g chips de chocolate</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Acremar manteca y azúcar.</li>
+          <li>Incorporar el huevo y la harina.</li>
+          <li>Sumar los chips al final.</li>
+          <li>Hornear a 180°C por 15 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: no las cocines de más; deben salir del horno apenas doradas en los bordes para que sigan húmedas.</div>
+        <p class="consv-note">Conservación: podés congelar las bolitas de masa cruda y hornear al momento del antojo.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b2-ch4" data-book="b2">
+  <div class="ch-head reveal">
+    <div class="ch-num">04</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 02 · Capítulo 04</div>
+      <h2>Budines y delicias intensas</h2>
+    </div>
+  </div>
+
+  <div class="insight-grid-2 reveal" style="margin-bottom:30px;">
+    <div class="insight-box">
+      <h6>Budín vs Brownie</h6>
+      <ul>
+        <li><b>Budín cítrico:</b> ideal para acompañar con un café suave por la tarde.</li>
+        <li><b>Brownie intenso:</b> perfecto como postre con una bocha de helado.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 07</div>
+      <div class="recipe-head">
+        <h4>Budín de Limón</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 40 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Un clásico que nunca falla. Es húmedo, cítrico y tiene un aroma que inunda toda la casa al hornearse.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">200 g premezcla</span></li>
+          <li><input type="checkbox"><span class="t">150 g azúcar</span></li>
+          <li><input type="checkbox"><span class="t">3 huevos</span></li>
+          <li><input type="checkbox"><span class="t">80 g aceite de girasol</span></li>
+          <li><input type="checkbox"><span class="t">Ralladura de 2 limones</span></li>
+          <li><input type="checkbox"><span class="t">1 cdita polvo de hornear</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Batir huevos y azúcar hasta blanquear.</li>
+          <li>Sumar aceite y ralladura.</li>
+          <li>Incorporar los secos tamizados.</li>
+          <li>Hornear en molde aceitado a 180°C por 40 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: agregá un almíbar de limón sobre el budín caliente para potenciar el sabor cítrico.</div>
+        <p class="consv-note">Conservación: envuelto en film se mantiene húmedo por 4 días.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 08</div>
+      <div class="recipe-head">
+        <h4>Brownie de Chocolate</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 25 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">La receta definitiva para los amantes del chocolate. Intenso, húmedo y con esa costra crujiente que buscamos.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">150 g chocolate cobertura</span></li>
+          <li><input type="checkbox"><span class="t">100 g manteca</span></li>
+          <li><input type="checkbox"><span class="t">200 g azúcar</span></li>
+          <li><input type="checkbox"><span class="t">3 huevos</span></li>
+          <li><input type="checkbox"><span class="t">80 g premezcla</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Derretir chocolate y manteca.</li>
+          <li>Batir huevos con azúcar e integrar al chocolate.</li>
+          <li>Agregar harina y mezclar.</li>
+          <li>Hornear a 180°C por 25 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: cortá el brownie cuando esté completamente frío para que los bordes queden perfectos.</div>
+        <p class="consv-note">Conservación: se conserva muy bien en la heladera y es delicioso servido frío.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b2-ch5" data-book="b2">
+  <div class="ch-head reveal">
+    <div class="ch-num">05</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 02 · Capítulo 05</div>
+      <h2>Granolas y snacks energéticos</h2>
+    </div>
+  </div>
+
+  <div class="insight-grid-2 reveal" style="margin-bottom:30px;">
+    <div class="insight-box">
+      <h6>Pasos de la granola</h6>
+      <ul>
+        <li><b>1. Preparar la base:</b> mezclar secos y endulzantes.</li>
+        <li><b>2. Tostar con cuidado:</b> vigilar el horno para evitar quemaduras.</li>
+        <li><b>3. Enfriar completamente:</b> queda crujiente solo al enfriarse.</li>
+      </ul>
+    </div>
+    <div class="insight-box">
+      <h6>Snacks saludables</h6>
+      <ul>
+        <li><b>Energía pura:</b> los frutos secos aportan grasas buenas para el día.</li>
+        <li><b>Sin aditivos:</b> lo casero siempre es mejor que lo industrial.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 09</div>
+      <div class="recipe-head">
+        <h4>Granola Casera</h4>
+        <div class="recipe-meta"><span>⏱ 160°C / tostado</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">La forma más sana de empezar el día. Podés ajustar los frutos secos a tu gusto personal.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">200 g avena certificada Sin TACC</span></li>
+          <li><input type="checkbox"><span class="t">50 g almendras picadas</span></li>
+          <li><input type="checkbox"><span class="t">50 g nueces</span></li>
+          <li><input type="checkbox"><span class="t">3 cdas miel</span></li>
+          <li><input type="checkbox"><span class="t">2 cdas aceite</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Mezclar todo en un bol.</li>
+          <li>Esparcir en placa para horno.</li>
+          <li>Tostar a 160°C moviendo cada 5 minutos.</li>
+        </ol>
+        <p class="consv-note">Conservación: en frasco de vidrio bien cerrado dura hasta un mes.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 10</div>
+      <div class="recipe-head">
+        <h4>Barritas de Avena, Frutos Secos y Chocolate</h4>
+        <div class="recipe-meta"><span>⏱ 2 h heladera</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Tu snack de emergencia. Son nutritivas, saciantes y perfectas para llevar en el bolso.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">150 g avena Sin TACC</span></li>
+          <li><input type="checkbox"><span class="t">50 g semillas variadas</span></li>
+          <li><input type="checkbox"><span class="t">50 g dátiles triturados</span></li>
+          <li><input type="checkbox"><span class="t">50 g chocolate amargo</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Procesar los dátiles con la avena.</li>
+          <li>Unir con las semillas.</li>
+          <li>Compactar en molde, colocar chocolate arriba.</li>
+          <li>Refrigerar 2 horas y cortar.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: si sentís la mezcla muy seca, podés agregar una cucharada de mantequilla de maní para unir mejor.</div>
+        <p class="consv-note">Conservación: guardar en heladera, se mantienen firmes por 10 días.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="closing reveal" style="margin-top:40px;">
+    <h3>Un pequeño consejo antes de terminar</h3>
+    <p>Cocinar es un acto de amor hacia uno mismo. No busques la perfección en la forma de un pan o en el dorado de una galleta; la verdadera magia ocurre cuando te animás a experimentar en tu propia cocina. Disfrutá el proceso, aprendé de cada intento y recordá que el ingrediente más importante es siempre tu entusiasmo.</p>
+    <div class="sign">Romina</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- LIBRO 3 — COCINA SIN TACC: PLATOS CASEROS                     -->
+<!-- ============================================================ -->
+
+<div class="book-divider reveal">
+  <div class="num-badge">03</div>
+  <span class="kicker">El tercer libro de Romina</span>
+  <h2>Cocina Sin TACC: Platos Caseros</h2>
+  <p>Recetas prácticas para resolver tus almuerzos y cenas diarias con confianza y sabor.</p>
+</div>
+
+<section class="chapter" id="b3-ch1" data-book="b3">
+  <div class="ch-head reveal">
+    <div class="ch-num">01</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 03 · Capítulo 01</div>
+      <h2>Almuerzos y Cenas: Introducción</h2>
+    </div>
+  </div>
+  <p class="recipe-intro reveal">Bienvenido a este espacio dedicado a resolver tus comidas principales. Acá vas a encontrar propuestas simples, caseras y totalmente libres de gluten para disfrutar cada día.</p>
+  <p class="recipe-intro reveal">Queremos que la cocina sea un lugar de placer y no una complicación. Estas diez recetas están diseñadas para acompañarte en tu rutina, garantizando resultados deliciosos con ingredientes fáciles de conseguir.</p>
+</section>
+
+<section class="chapter" id="b3-ch2" data-book="b3">
+  <div class="ch-head reveal">
+    <div class="ch-num">02</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 03 · Capítulo 02</div>
+      <h2>Recetas 1 a 3</h2>
+    </div>
+  </div>
+
+  <div class="alert-box reveal">
+    <div class="ico">🌾</div>
+    <div>
+      <h4>Atención</h4>
+      <p>Asegurate siempre de que todos tus ingredientes procesados cuenten con el sello de certificación Sin TACC.</p>
+    </div>
+  </div>
+
+  <div class="insight-box reveal">
+    <h6>Pasos para el éxito</h6>
+    <ul>
+      <li><b>1. Limpieza:</b> limpiá tu espacio de trabajo antes de cocinar.</li>
+      <li><b>2. Orden:</b> tené todos los ingredientes medidos previamente.</li>
+      <li><b>3. Control:</b> verificá el estado de los ingredientes frescos.</li>
+    </ul>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 01</div>
+      <div class="recipe-head">
+        <h4>Tarta de verduras Sin TACC</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 30 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Esta tarta es el comodín perfecto para cualquier día de la semana. Su masa crocante y el relleno nutritivo la convierten en una opción ideal para llevar al trabajo o disfrutar en casa.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">200 g de premezcla sin TACC</span></li>
+          <li><input type="checkbox"><span class="t">1 huevo</span></li>
+          <li><input type="checkbox"><span class="t">50 g de manteca fría</span></li>
+          <li><input type="checkbox"><span class="t">500 g de acelga hervida y escurrida</span></li>
+          <li><input type="checkbox"><span class="t">200 g de queso cremoso</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Mezclá la premezcla con la manteca y el huevo hasta formar un bollo.</li>
+          <li>Estirá la masa y cubrí un molde.</li>
+          <li>Mezclá la acelga picada con el queso y rellená.</li>
+          <li>Horneá a 180°C por 30 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: escurrí muy bien la acelga antes de incorporarla para evitar que la base de la tarta se humedezca demasiado.</div>
+        <p class="consv-note">Conservación: se conserva hasta 3 días en heladera. Es apta para freezer, envuelta en papel film.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 02</div>
+      <div class="recipe-head">
+        <h4>Pastel de papas Sin TACC</h4>
+        <div class="recipe-meta"><span>⏱ Al horno, gratinado</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Un clásico reconfortante que nunca falla. Es la receta ideal para aprovechar el puré y crear un plato completo que gusta a toda la familia.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">1 kg de papas</span></li>
+          <li><input type="checkbox"><span class="t">500 g de carne picada</span></li>
+          <li><input type="checkbox"><span class="t">1 cebolla picada</span></li>
+          <li><input type="checkbox"><span class="t">2 huevos duros</span></li>
+          <li><input type="checkbox"><span class="t">Sal y pimienta a gusto</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Hervir las papas y preparar un puré suave.</li>
+          <li>Rehogar la carne con la cebolla en una sartén.</li>
+          <li>Colocar la carne en una fuente, añadir los huevos picados.</li>
+          <li>Cubrir con el puré y gratinar en el horno.</li>
+        </ol>
+        <p class="consv-note">Conservación: se mantiene en heladera hasta 4 días y puede congelarse en porciones individuales perfectamente.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 03</div>
+      <div class="recipe-head">
+        <h4>Pollo al horno con vegetales</h4>
+        <div class="recipe-meta"><span>⏱ Todo en una bandeja</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Esta receta es la definición de simplicidad. Todo se cocina en una misma bandeja, permitiendo que los jugos se integren y los sabores se realcen naturalmente.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">4 muslos de pollo</span></li>
+          <li><input type="checkbox"><span class="t">2 zanahorias</span></li>
+          <li><input type="checkbox"><span class="t">1 zapallo anco</span></li>
+          <li><input type="checkbox"><span class="t">Aceite de oliva</span></li>
+          <li><input type="checkbox"><span class="t">Hierbas frescas</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Cortá los vegetales en trozos medianos.</li>
+          <li>Colocá el pollo y los vegetales en una fuente.</li>
+          <li>Condimentá con aceite y hierbas, y llevá al horno.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: marina el pollo con limón y hierbas durante al menos 30 minutos antes de hornear para ganar mucha más intensidad.</div>
+        <p class="consv-note">Conservación: guardá en recipiente hermético en heladera hasta por 3 días. No se recomienda congelar junto con las papas o zapallos si están muy cocidos.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b3-ch3" data-book="b3">
+  <div class="ch-head reveal">
+    <div class="ch-num">03</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 03 · Capítulo 03</div>
+      <h2>Recetas 4 a 6</h2>
+    </div>
+  </div>
+
+  <div class="insight-box reveal">
+    <h6>Secretos del sabor</h6>
+    <ul>
+      <li><b>Fuego fuerte:</b> esencial para sellar las carnes y verduras en el wok.</li>
+      <li><b>Sellado:</b> evita que los jugos se pierdan en las albóndigas.</li>
+      <li><b>Orden:</b> preparé la mise en place antes de encender el fuego.</li>
+    </ul>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 04</div>
+      <div class="recipe-head">
+        <h4>Albóndigas caseras en salsa de tomate</h4>
+        <div class="recipe-meta"><span>⏱ 20 min a fuego lento</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Las albóndigas son el plato favorito cuando buscamos algo casero y abundante. La salsa de tomate natural es el acompañamiento ideal.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">500 g de carne picada</span></li>
+          <li><input type="checkbox"><span class="t">1 huevo</span></li>
+          <li><input type="checkbox"><span class="t">2 cucharadas de fécula de maíz</span></li>
+          <li><input type="checkbox"><span class="t">500 ml de puré de tomate</span></li>
+          <li><input type="checkbox"><span class="t">Ajo y perejil picado</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Mezclá la carne con el huevo, fécula y condimentos.</li>
+          <li>Formá pequeñas bolas con las manos.</li>
+          <li>Cociná en una salsa de tomate hirviendo a fuego lento por 20 minutos.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: sellá las albóndigas en una sartén con apenas aceite antes de ponerlas en la salsa, para que mantengan mejor su forma.</div>
+        <p class="consv-note">Conservación: se pueden congelar ya cocidas junto con su salsa, en recipientes herméticos.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 05</div>
+      <div class="recipe-head">
+        <h4>Hamburguesas caseras Sin TACC</h4>
+        <div class="recipe-meta"><span>⏱ A la plancha</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Olvidate de las industriales. Preparar tus propias hamburguesas garantiza calidad y un sabor mucho más fresco para tus cenas rápidas.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">500 g de carne picada magra</span></li>
+          <li><input type="checkbox"><span class="t">1 cebolla rallada</span></li>
+          <li><input type="checkbox"><span class="t">Sal, pimienta y pimentón</span></li>
+          <li><input type="checkbox"><span class="t">1 cucharada de fécula de maíz</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Integrá la carne con la cebolla y los condimentos.</li>
+          <li>Añadí la fécula para unir la preparación.</li>
+          <li>Formá discos del tamaño deseado.</li>
+          <li>Cociná a la plancha hasta que estén bien doradas.</li>
+        </ol>
+        <p class="consv-note">Conservación: separá cada hamburguesa con separadores plásticos y congelalas crudas por hasta 3 meses.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 06</div>
+      <div class="recipe-head">
+        <h4>Wok de pollo y verduras</h4>
+        <div class="recipe-meta"><span>⏱ Fuego fuerte / 5 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Una opción dinámica que permite aprovechar los vegetales que tengas en la heladera. Es un plato ligero, rápido y muy nutritivo.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">1 pechuga de pollo en cubos</span></li>
+          <li><input type="checkbox"><span class="t">1 morrón rojo</span></li>
+          <li><input type="checkbox"><span class="t">1 zanahoria en tiras</span></li>
+          <li><input type="checkbox"><span class="t">Salsa de soja Sin TACC</span></li>
+          <li><input type="checkbox"><span class="t">Jengibre fresco</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Salteá el pollo a fuego fuerte en un wok.</li>
+          <li>Agregá los vegetales y cociná por 5 minutos.</li>
+          <li>Condimentá con la salsa de soja y el jengibre rallado.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: cortá todos los vegetales del mismo tamaño para que la cocción sea pareja y conserven su textura crocante.</div>
+        <p class="consv-note">Conservación: se consume preferentemente en el momento. Si sobra, guardá en heladera y consumí dentro de las 24 horas.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b3-ch4" data-book="b3">
+  <div class="ch-head reveal">
+    <div class="ch-num">04</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 03 · Capítulo 04</div>
+      <h2>Recetas 7 a 10</h2>
+    </div>
+  </div>
+
+  <div class="insight-grid-2 reveal" style="margin-bottom:30px;">
+    <div class="insight-box">
+      <h6>Mejor textura para los ñoquis</h6>
+      <ul>
+        <li>✓ Usá papas al horno: menos humedad en el puré significa una masa más firme y fácil de manejar.</li>
+        <li>✗ Evitá el exceso de agua: obliga a usar demasiada premezcla y endurece los ñoquis.</li>
+      </ul>
+    </div>
+    <div class="insight-box">
+      <h6>Antes de servir</h6>
+      <ul>
+        <li>✓ Pre-cocinar la masa de pizza</li>
+        <li>✓ Congelar ñoquis crudos</li>
+        <li>✓ Blanquear zapallitos</li>
+        <li>✓ No revolver el arroz</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 07</div>
+      <div class="recipe-head">
+        <h4>Arroz con pollo</h4>
+        <div class="recipe-meta"><span>⏱ Fuego bajo</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Un plato rendidor que nunca pasa de moda. El arroz absorbe todo el sabor del pollo y las verduras, creando una combinación ganadora.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">1 taza de arroz</span></li>
+          <li><input type="checkbox"><span class="t">2 muslos de pollo troceados</span></li>
+          <li><input type="checkbox"><span class="t">1 cebolla y 1 morrón</span></li>
+          <li><input type="checkbox"><span class="t">2 tazas de caldo Sin TACC</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Dorá el pollo en una olla profunda.</li>
+          <li>Añadí la cebolla y morrón picados.</li>
+          <li>Agregá el arroz y el caldo caliente.</li>
+          <li>Cociná a fuego bajo hasta que el arroz esté tierno.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: no revuelvas el arroz durante la cocción para evitar que suelte demasiado almidón y quede pastoso.</div>
+        <p class="consv-note">Conservación: se conserva bien en heladera hasta 3 días. No es recomendable congelarlo.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 08</div>
+      <div class="recipe-head">
+        <h4>Pizza casera Sin TACC</h4>
+        <div class="recipe-meta"><span>⏱ Precocción 10 min + horno</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Lograr una pizza rica sin gluten es posible. Con la masa correcta, podés disfrutar de una noche de viernes clásica en casa.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">300 g de premezcla</span></li>
+          <li><input type="checkbox"><span class="t">1 sobre de levadura seca</span></li>
+          <li><input type="checkbox"><span class="t">200 ml de agua tibia</span></li>
+          <li><input type="checkbox"><span class="t">1 cucharada de aceite</span></li>
+          <li><input type="checkbox"><span class="t">Salsa de tomate y queso</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Activá la levadura con agua tibia.</li>
+          <li>Formá una masa blanda con la premezcla.</li>
+          <li>Estirá en una pizzera y horneá 10 minutos.</li>
+          <li>Cubrí con salsa y queso, y horneá hasta derretir.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: dejá leudar la masa en un lugar cálido para lograr una textura más esponjosa y liviana.</div>
+        <p class="consv-note">Conservación: la masa precocida se puede congelar perfectamente. Solo agregá los ingredientes frescos al momento de hornearla nuevamente.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 09</div>
+      <div class="recipe-head">
+        <h4>Ñoquis Sin TACC</h4>
+        <div class="recipe-meta"><span>⏱ Hasta que floten</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Los ñoquis son ese plato que nos recuerda a las reuniones familiares. Esta versión es suave y se mantiene firme en el plato.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">500 g de puré de papas</span></li>
+          <li><input type="checkbox"><span class="t">1 huevo</span></li>
+          <li><input type="checkbox"><span class="t">150 g de premezcla</span></li>
+          <li><input type="checkbox"><span class="t">Sal y nuez moscada</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Mezclá el puré frío con el huevo.</li>
+          <li>Añadí la premezcla poco a poco hasta formar un bollo.</li>
+          <li>Cortá pequeños trozos y dales forma.</li>
+          <li>Hervilos en abundante agua hasta que floten.</li>
+        </ol>
+        <p class="consv-note">Conservación: congelá los ñoquis crudos sobre una placa enharinada y luego pasalos a una bolsa. Se cocinan directamente congelados.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 10</div>
+      <div class="recipe-head">
+        <h4>Zapallitos rellenos</h4>
+        <div class="recipe-meta"><span>⏱ Al horno, hasta dorar</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Una forma deliciosa de comer vegetales. El zapallito actúa como un contenedor perfecto para un relleno jugoso y nutritivo.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">4 zapallitos grandes</span></li>
+          <li><input type="checkbox"><span class="t">100 g de carne picada o jamón</span></li>
+          <li><input type="checkbox"><span class="t">1 cebolla picada</span></li>
+          <li><input type="checkbox"><span class="t">50 g de queso rallado</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Ahuecá los zapallitos y cociná la pulpa.</li>
+          <li>Mezclá la pulpa con la carne y la cebolla cocida.</li>
+          <li>Rellená los zapallitos y espolvoreá con queso.</li>
+          <li>Horneá hasta dorar.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: blanqueá los zapallitos enteros en agua hirviendo por 5 minutos antes de ahuecarlos; esto facilita mucho el trabajo.</div>
+        <p class="consv-note">Conservación: se mantienen en heladera por 2 días. Pueden congelarse cocidos, preferentemente dentro de un recipiente rígido.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b3-ch5" data-book="b3">
+  <div class="ch-head reveal">
+    <div class="ch-num">05</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 03 · Capítulo 05</div>
+      <h2>Cierre</h2>
+    </div>
+  </div>
+  <div class="closing reveal">
+    <p style="margin-bottom:0;">En el próximo capítulo seguiremos descubriendo nuevas recetas fáciles para disfrutar la cocina Sin TACC todos los días.</p>
+    <div class="sign">Romina</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- LIBRO 4 — SABORES SIN CULPA: COCINA LIBRE DE GLUTEN           -->
+<!-- ============================================================ -->
+
+<div class="book-divider reveal">
+  <div class="num-badge">04</div>
+  <span class="kicker">El cuarto libro de Romina</span>
+  <h2>Sabores Sin Culpa: Cocina Libre de Gluten</h2>
+  <p>Guía práctica para comer rico, sano y sin complicaciones: snacks crocantes y dips caseros para cualquier momento del día.</p>
+</div>
+
+<section class="chapter" id="b4-ch1" data-book="b4">
+  <div class="ch-head reveal">
+    <div class="ch-num">01</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 04 · Capítulo 01</div>
+      <h2>Snacks Saludables y Dips: Introducción</h2>
+    </div>
+  </div>
+  <p class="recipe-intro reveal">La magia de comer bien está en los detalles y en la elección de ingredientes nobles. Con apenas unos pocos elementos y preparaciones sencillas, es posible crear picadas, colaciones y acompañamientos caseros deliciosos y totalmente libres de gluten.</p>
+  <p class="recipe-intro reveal">Estas opciones son perfectas para disfrutar en cualquier momento del día, ya sea para un encuentro social o un antojo rápido en casa.</p>
+
+  <div class="insight-grid-2 reveal">
+    <div class="insight-box">
+      <h6>Snacks Crocantes</h6>
+      <ul><li>Texturas crujientes hechas en casa para saciar el hambre entre comidas.</li></ul>
+    </div>
+    <div class="insight-box">
+      <h6>Dips para Compartir</h6>
+      <ul><li>Acompañamientos cremosos que elevan cualquier tabla de picoteo.</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="b4-ch2" data-book="b4">
+  <div class="ch-head reveal">
+    <div class="ch-num">02</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 04 · Capítulo 02</div>
+      <h2>Snacks Crocantes</h2>
+    </div>
+  </div>
+
+  <div class="alert-box reveal">
+    <div class="ico">¡!</div>
+    <div>
+      <h4>¡Atención!</h4>
+      <p>Al estirar masas libres de gluten, el uso de papel manteca es fundamental para que no se peguen a la mesada.</p>
+    </div>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 01</div>
+      <div class="recipe-head">
+        <h4>Crackers de semillas Sin TACC</h4>
+        <div class="recipe-meta"><span>⏱ 180°C / 25-30 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Estas galletas son el aliado perfecto para cualquier dip. Son ligeras, crujientes y aportan una carga de energía saludable gracias a la variedad de semillas utilizadas.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">1 taza de semillas de chía, lino y sésamo mezcladas</span></li>
+          <li><input type="checkbox"><span class="t">1/2 taza de agua tibia</span></li>
+          <li><input type="checkbox"><span class="t">Una pizca de sal marina</span></li>
+          <li><input type="checkbox"><span class="t">Hierbas secas a gusto</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Mezclar las semillas con el agua y dejar reposar 15 minutos hasta que se forme un gel.</li>
+          <li>Extender la mezcla sobre papel manteca en una bandeja para horno.</li>
+          <li>Hornear a 180°C durante 25-30 minutos hasta que estén doradas y secas.</li>
+          <li>Dejar enfriar completamente antes de romper en trozos.</li>
+        </ol>
+        <p class="consv-note">Conservación: se mantienen en un frasco hermético hasta por 10 días. No se recomienda congelar, para que no pierdan la textura crujiente.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 02</div>
+      <div class="recipe-head">
+        <h4>Nachos caseros al horno Sin TACC</h4>
+        <div class="recipe-meta"><span>⏱ 200°C / 12-15 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Olvidate de los procesados industriales. Estos nachos caseros son la versión más saludable y nutritiva, manteniendo esa textura adictiva que todos amamos.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">1 taza de harina de maíz precocida</span></li>
+          <li><input type="checkbox"><span class="t">3/4 taza de agua caliente</span></li>
+          <li><input type="checkbox"><span class="t">1 cucharadita de aceite de oliva</span></li>
+          <li><input type="checkbox"><span class="t">Sal y pimentón ahumado al gusto</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Mezclar la harina, el agua y el aceite hasta formar una masa suave.</li>
+          <li>Estirar la masa muy fina entre dos papeles manteca.</li>
+          <li>Cortar en triángulos y distribuir en una placa para horno.</li>
+          <li>Hornear a 200°C por 12-15 minutos hasta que estén bien crocantes.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: si querés un toque extra de sabor, espolvoreá un poco de levadura nutricional o queso rallado fino antes de hornear.</div>
+        <p class="consv-note">Conservación: consérvalos en un recipiente hermético en un lugar fresco y seco hasta por 5 días.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b4-ch3" data-book="b4">
+  <div class="ch-head reveal">
+    <div class="ch-num">03</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 04 · Capítulo 03</div>
+      <h2>Snacks y Garbanzos</h2>
+    </div>
+  </div>
+
+  <div class="stat-row reveal">
+    <div class="stat-chip"><b>40m</b><span>Horneado</span></div>
+    <div class="stat-chip"><b>2mm</b><span>Espesor</span></div>
+  </div>
+
+  <div class="insight-box reveal">
+    <h6>Antes de hornear</h6>
+    <ul>
+      <li>✓ Cortar láminas uniformes</li>
+      <li>✓ Secar bien los garbanzos</li>
+      <li>✓ Pincelar con aceite de oliva</li>
+      <li>✓ Controlar el horno constantemente</li>
+    </ul>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 03</div>
+      <div class="recipe-head">
+        <h4>Garbanzos crocantes especiados</h4>
+        <div class="recipe-meta"><span>⏱ 200°C / 30-40 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Los garbanzos se transforman en este snack adictivo que podés comer como si fueran frutos secos. Son altamente proteicos y saciantes.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">2 tazas de garbanzos cocidos y bien secos</span></li>
+          <li><input type="checkbox"><span class="t">1 cucharada de aceite de oliva</span></li>
+          <li><input type="checkbox"><span class="t">1 cucharadita de comino</span></li>
+          <li><input type="checkbox"><span class="t">1 cucharadita de pimentón dulce</span></li>
+          <li><input type="checkbox"><span class="t">Sal marina al gusto</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Secar muy bien los garbanzos con un paño limpio.</li>
+          <li>Mezclar en un bol con el aceite y los condimentos.</li>
+          <li>Disponer en una bandeja y hornear a 200°C durante 30-40 minutos.</li>
+          <li>Mover a mitad de cocción para que se doren uniformemente.</li>
+        </ol>
+        <p class="consv-note">Conservación: mantener en un frasco de vidrio en la alacena. Consumir dentro de los 3 días para disfrutar de su textura ideal.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 04</div>
+      <div class="recipe-head">
+        <h4>Bastones de polenta al horno</h4>
+        <div class="recipe-meta"><span>⏱ Solidificar + horno</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Una forma original de consumir polenta, que normalmente se sirve cremosa. Estos bastones son firmes por fuera y suaves por dentro.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">1 taza de polenta de cocción rápida</span></li>
+          <li><input type="checkbox"><span class="t">3 tazas de caldo de vegetales</span></li>
+          <li><input type="checkbox"><span class="t">Hierbas frescas picadas</span></li>
+          <li><input type="checkbox"><span class="t">Aceite para pincelar</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Cocinar la polenta en el caldo según las instrucciones del paquete.</li>
+          <li>Verter en una fuente cuadrada y dejar enfriar hasta que solidifique.</li>
+          <li>Cortar en bastones uniformes.</li>
+          <li>Pincelar con aceite de oliva y hornear a 200°C hasta dorar por fuera.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: podés añadir un poco de queso parmesano rallado a la mezcla de polenta antes de que solidifique, para un sabor más profundo.</div>
+        <p class="consv-note">Conservación: se mantienen en la heladera hasta 3 días. Podés calentarlos en el horno unos minutos para recuperar el crocante.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 05</div>
+      <div class="recipe-head">
+        <h4>Chips de vegetales al horno</h4>
+        <div class="recipe-meta"><span>⏱ 160°C / 20-25 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">La forma más colorida y saludable de disfrutar vegetales. Podés usar remolacha, zanahoria o calabaza para una variedad de colores y sabores.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">2 vegetales de raíz (zanahoria, remolacha)</span></li>
+          <li><input type="checkbox"><span class="t">1 cucharada de aceite de oliva</span></li>
+          <li><input type="checkbox"><span class="t">Sal marina</span></li>
+          <li><input type="checkbox"><span class="t">Pimienta negra</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Cortar los vegetales en láminas muy finas, de unos 2 mm de espesor.</li>
+          <li>Mezclar con el aceite y los condimentos en un bol.</li>
+          <li>Disponer en una placa sin encimar.</li>
+          <li>Hornear a 160°C durante 20-25 minutos, vigilando constantemente para que no se quemen.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: si al sacarlos del horno notás que no están del todo crujientes, dejalos reposar un par de minutos sobre una rejilla; la humedad se evaporará con el calor residual.</div>
+        <p class="consv-note">Conservación: consumir inmediatamente después de preparados para asegurar el punto crujiente máximo.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b4-ch4" data-book="b4">
+  <div class="ch-head reveal">
+    <div class="ch-num">04</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 04 · Capítulo 04</div>
+      <h2>Dips para Acompañar</h2>
+    </div>
+  </div>
+
+  <div class="insight-grid-2 reveal" style="margin-bottom:30px;">
+    <div class="insight-box">
+      <h6>El arte de untar</h6>
+      <ul>
+        <li><b>Hummus, la base universal:</b> su cremosidad permite agregar especias, remolacha o pimientos para variar el sabor.</li>
+        <li><b>Texturas frescas:</b> el queso crema aporta ligereza y acidez controlada.</li>
+        <li><b>Grasas saludables:</b> la palta del guacamole es un súper alimento esencial.</li>
+      </ul>
+    </div>
+    <div class="insight-box">
+      <h6>Secretos de un buen dip</h6>
+      <ul>
+        <li><b>Equilibrio de acidez:</b> el limón es fundamental para resaltar los sabores y conservar colores brillantes.</li>
+        <li><b>Textura perfecta:</b> la clave está en procesar hasta lograr una mezcla homogénea que retenga cuerpo.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 06</div>
+      <div class="recipe-head">
+        <h4>Hummus clásico</h4>
+        <div class="recipe-meta"><span>⏱ 5 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Un infaltable en cualquier mesa. El hummus es versátil, nutritivo y combina con casi todo lo que prepares en este capítulo.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">2 tazas de garbanzos cocidos</span></li>
+          <li><input type="checkbox"><span class="t">Jugo de 1 limón</span></li>
+          <li><input type="checkbox"><span class="t">2 cucharadas de pasta de sésamo (tahini)</span></li>
+          <li><input type="checkbox"><span class="t">1 diente de ajo</span></li>
+          <li><input type="checkbox"><span class="t">3 cucharadas de aceite de oliva</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Procesar todos los ingredientes hasta obtener una crema suave.</li>
+          <li>Si está muy espeso, añadir un chorrito de agua fría.</li>
+          <li>Rectificar sal y servir con un hilo de aceite.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: para un hummus extra suave, retirá la piel de los garbanzos antes de procesarlos. Lleva un tiempo extra, pero la textura cambia drásticamente.</div>
+        <p class="consv-note">Conservación: se conserva en un recipiente cerrado en la heladera durante 5 días. No se recomienda congelar.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 07</div>
+      <div class="recipe-head">
+        <h4>Dip de queso crema y ciboulette</h4>
+        <div class="recipe-meta"><span>⏱ 5 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Simple, fresco y elegante. Este dip es un clásico que nunca falla y gusta a grandes y chicos por igual.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">200 g de queso crema firme</span></li>
+          <li><input type="checkbox"><span class="t">1 cucharada de ciboulette fresco picado</span></li>
+          <li><input type="checkbox"><span class="t">Ralladura de medio limón</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Batir el queso crema con un tenedor hasta que esté aireado.</li>
+          <li>Incorporar el ciboulette picado y la ralladura.</li>
+          <li>Condimentar y servir bien frío.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: dejá reposar el dip en la heladera al menos 30 minutos antes de servir, para que los sabores de las hierbas se integren bien al queso.</div>
+        <p class="consv-note">Conservación: consumir dentro de los 3 días y mantener siempre refrigerado.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 08</div>
+      <div class="recipe-head">
+        <h4>Guacamole casero</h4>
+        <div class="recipe-meta"><span>⏱ 5 min, servir al instante</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">El rey de los acompañamientos. La frescura del aguacate maduro es inigualable y combina a la perfección con los nachos caseros.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">2 paltas maduras</span></li>
+          <li><input type="checkbox"><span class="t">1/4 de cebolla morada picada</span></li>
+          <li><input type="checkbox"><span class="t">Jugo de 1 limón</span></li>
+          <li><input type="checkbox"><span class="t">Cilantro fresco picado</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Pisar la palta con un tenedor dejando algunos trozos.</li>
+          <li>Agregar el resto de los ingredientes picados.</li>
+          <li>Mezclar suavemente y ajustar la sal.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: para evitar que se oxide, añadí el carozo de la palta dentro del bol si vas a tardar unos minutos en llevarlo a la mesa.</div>
+        <p class="consv-note">Conservación: es una preparación de consumo inmediato. Si sobra, cubrí con film en contacto directo con la superficie para evitar que se ponga oscuro.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="chapter" id="b4-ch5" data-book="b4">
+  <div class="ch-head reveal">
+    <div class="ch-num">05</div>
+    <div class="ch-title-block">
+      <div class="eyebrow">Libro 04 · Capítulo 05</div>
+      <h2>Dips y Cierre</h2>
+    </div>
+  </div>
+
+  <div class="insight-box reveal">
+    <h6>El balance perfecto</h6>
+    <ul>
+      <li><b>Lo crujiente:</b> crackers, nachos y vegetales crudos aportan la estructura necesaria.</li>
+      <li><b>Lo untable:</b> hummus y dips de yogur aportan la humedad y el contraste de sabor.</li>
+    </ul>
+  </div>
+
+  <div class="recipe-grid">
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 09</div>
+      <div class="recipe-head">
+        <h4>Paté de aceitunas negras</h4>
+        <div class="recipe-meta"><span>⏱ 5 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">Intenso y delicioso, este paté es una explosión de sabor que acompaña muy bien crackers neutras o pan sin gluten tostado.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">1 taza de aceitunas negras descarozadas</span></li>
+          <li><input type="checkbox"><span class="t">1 diente de ajo pequeño</span></li>
+          <li><input type="checkbox"><span class="t">1 cucharadita de alcaparras (opcional)</span></li>
+          <li><input type="checkbox"><span class="t">2 cucharadas de aceite de oliva</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Procesar todos los ingredientes hasta lograr una pasta untable.</li>
+          <li>Si se desea una textura más rústica, procesar solo unos segundos.</li>
+          <li>Servir con un toque de pimienta negra.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: si las aceitunas son muy saladas, no hace falta agregar sal extra. Probá antes de condimentar.</div>
+        <p class="consv-note">Conservación: se mantiene perfecto en frasco de vidrio en la heladera hasta por 1 semana.</p>
+      </div>
+    </article>
+
+    <article class="recipe-card reveal">
+      <div class="divider-tab">Receta 10</div>
+      <div class="recipe-head">
+        <h4>Dip de yogur con hierbas frescas</h4>
+        <div class="recipe-meta"><span>⏱ 5 min</span><span>🌾 Sin TACC</span></div>
+        <p style="font-size:13.5px; color:#463A31; margin-top:8px;">La alternativa más liviana y digestiva. El yogur aporta una acidez natural deliciosa que limpia el paladar.</p>
+      </div>
+      <div class="recipe-body">
+        <h6>Ingredientes</h6>
+        <ul class="ing-list">
+          <li><input type="checkbox"><span class="t">1 taza de yogur griego natural sin azúcar</span></li>
+          <li><input type="checkbox"><span class="t">1 cucharada de menta fresca picada</span></li>
+          <li><input type="checkbox"><span class="t">1 cucharada de perejil picado</span></li>
+          <li><input type="checkbox"><span class="t">1 diente de ajo triturado</span></li>
+        </ul>
+        <h6>Preparación</h6>
+        <ol class="steps-list">
+          <li>Mezclar el yogur con las hierbas picadas y el ajo.</li>
+          <li>Salpimentar al gusto.</li>
+          <li>Dejar enfriar antes de servir.</li>
+        </ol>
+        <div class="tip-note">💚 Mi consejo: utilizá yogur natural bien espeso (tipo griego) para que el dip no pierda consistencia al añadir los vegetales.</div>
+        <p class="consv-note">Conservación: consumir dentro de los 4 días. Mantener siempre refrigerado.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="insight-box reveal" style="margin-top:10px;">
+    <h6>Disfrutá sin límites</h6>
+    <ul>
+      <li><b>01 Variedad:</b> combiná diferentes texturas en cada encuentro.</li>
+      <li><b>02 Preparación:</b> organizá tus dips con tiempo para que ganen sabor en la heladera.</li>
+      <li><b>03 Calidad:</b> elegí siempre ingredientes frescos y naturales.</li>
+    </ul>
+  </div>
+
+  <div class="closing reveal">
+    <h3>Armá una picada Sin TACC</h3>
+    <p>La clave de una picada exitosa no está en la cantidad, sino en la variedad de colores y texturas. Para tu próximo encuentro familiar, colocá en una tabla grande un cuenco central con Hummus y otro con Guacamole. Rodealos con tus Crackers de semillas y los Nachos caseros. Añadí una lluvia de Garbanzos crocantes en los espacios vacíos y decorá con bastones de zanahoria y apio para refrescar el paladar.</p>
+    <div class="sign">Con cariño, Romina</div>
+  </div>
+</section>
+
+<footer>
+  © Solution Makers — "¿Qué cocino hoy? Fácil Sin TACC" — colección completa de 4 libros. Hecho con cariño casero, sin gluten y sin vueltas.
+</footer>
+
+<script>
+// ---------- book + chapter data ----------
+const BOOKS = {
+  b1: { label:"Desayunos y Meriendas", chapters:[["b1-ch1","01","Bienvenida"],["b1-ch2","02","Fundamentos"],["b1-ch3","03","Desayunos I"],["b1-ch4","04","Desayunos II"],["b1-ch5","05","Organización"]] },
+  b2: { label:"Dulce y Salado", chapters:[["b2-ch1","01","Panes"],["b2-ch2","02","Salados"],["b2-ch3","03","Galletitas"],["b2-ch4","04","Budines"],["b2-ch5","05","Granolas"]] },
+  b3: { label:"Platos Caseros", chapters:[["b3-ch1","01","Intro"],["b3-ch2","02","Recetas 1-3"],["b3-ch3","03","Recetas 4-6"],["b3-ch4","04","Recetas 7-10"],["b3-ch5","05","Cierre"]] },
+  b4: { label:"Snacks y Dips", chapters:[["b4-ch1","01","Intro"],["b4-ch2","02","Crocantes"],["b4-ch3","03","Garbanzos"],["b4-ch4","04","Dips"],["b4-ch5","05","Cierre"]] },
+};
+
+const bookButtons = document.querySelectorAll('.book-btn');
+const tabsNav = document.getElementById('tabs');
+let currentBook = 'b1';
+
+function renderTabs(bookId, activeChapterId){
+  const chapters = BOOKS[bookId].chapters;
+  tabsNav.innerHTML = chapters.map(([id,n,label])=>
+    `<button class="tab-btn${id===activeChapterId?' active':''}" data-target="#${id}"><span class="n">${n}</span> ${label}</button>`
+  ).join('');
+  tabsNav.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const el = document.querySelector(btn.dataset.target);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+}
+
+function setActiveBook(bookId, activeChapterId){
+  currentBook = bookId;
+  bookButtons.forEach(b=>b.classList.toggle('active', b.dataset.book === bookId));
+  renderTabs(bookId, activeChapterId);
+}
+
+bookButtons.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const bookId = btn.dataset.book;
+    setActiveBook(bookId, BOOKS[bookId].chapters[0][0]);
+    document.getElementById(BOOKS[bookId].chapters[0][0]).scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
+
+renderTabs('b1', 'b1-ch1');
+
+// ---------- scroll observer: keep nav in sync ----------
+const chapterSections = document.querySelectorAll('section.chapter');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const bookId = e.target.dataset.book;
+      const chId = e.target.id;
+      if(bookId !== currentBook){
+        setActiveBook(bookId, chId);
+      } else {
+        tabsNav.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.target === '#'+chId));
+      }
+    }
+  });
+}, {rootMargin:'-35% 0px -55% 0px'});
+chapterSections.forEach(c=>io.observe(c));
+
+// ---------- reveal on scroll ----------
+const revealEls = document.querySelectorAll('.reveal');
+const rio = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); }
+  });
+}, {threshold:0.1});
+revealEls.forEach(el=>rio.observe(el));
+
+// ---------- typewriter hero ----------
+const dishes = ["Pan Brioche con miel","Tarta de verduras","Scones de queso","Hummus clásico","Cookies con chips","Budín de limón","Nachos caseros","Granola casera","Pastel de papas","Guacamole fresco"];
+const typeEl = document.getElementById('typewrap');
+let dIdx=0, cIdx=0, deleting=false;
+function typeLoop(){
+  const word = dishes[dIdx];
+  if(!deleting){
+    cIdx++;
+    typeEl.textContent = word.slice(0,cIdx);
+    if(cIdx === word.length){ deleting = true; setTimeout(typeLoop, 1300); return; }
+  } else {
+    cIdx--;
+    typeEl.textContent = word.slice(0,cIdx);
+    if(cIdx === 0){ deleting=false; dIdx = (dIdx+1)%dishes.length; }
+  }
+  setTimeout(typeLoop, deleting ? 32 : 60);
+}
+typeLoop();
+
+// ---------- semaforo game (Libro 1) ----------
+const ingredients = [
+  {name:"Harina de arroz", ok:true},
+  {name:"Trigo sarraceno puro", ok:true},
+  {name:"Avena sin certificar", ok:false},
+  {name:"Salsa de soja común", ok:false},
+  {name:"Fécula de maíz", ok:true},
+  {name:"Cerveza tradicional", ok:false},
+  {name:"Almidón de mandioca", ok:true},
+  {name:"Fideos de trigo", ok:false},
+];
+let score = 0;
+const board = document.getElementById('gameBoard');
+const scorePill = document.getElementById('scorePill');
+
+function buildGame(){
+  if(!board) return;
+  board.innerHTML = '';
+  score = 0;
+  scorePill.textContent = `Aciertos: 0 / ${ingredients.length}`;
+  ingredients.forEach((ing)=>{
+    const row = document.createElement('div');
+    row.className = 'ingredient-row';
+    row.innerHTML = `
+      <span class="name">${ing.name}</span>
+      <div class="game-choices">
+        <button class="choice-btn" data-choice="true">Sí, es Sin TACC</button>
+        <button class="choice-btn" data-choice="false">Revisar / No</button>
+      </div>
+      <span class="result"></span>
+    `;
+    row.querySelectorAll('.choice-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        if(row.classList.contains('correct') || row.classList.contains('wrong')) return;
+        const choice = btn.dataset.choice === 'true';
+        const correct = choice === ing.ok;
+        row.classList.add(correct ? 'correct' : 'wrong');
+        row.querySelector('.result').textContent = correct ? '✔ ¡Correcto!' : `✘ Era: ${ing.ok ? 'Sí' : 'Revisar'}`;
+        if(correct) score++;
+        scorePill.textContent = `Aciertos: ${score} / ${ingredients.length}`;
+      });
+    });
+    board.appendChild(row);
+  });
+}
+buildGame();
+const gameResetBtn = document.getElementById('gameReset');
+if(gameResetBtn) gameResetBtn.addEventListener('click', buildGame);
+
+// ---------- checklist progress (Libro 1) ----------
+const checkItems = document.querySelectorAll('.check-item input');
+const fill = document.getElementById('progressFill');
+const label = document.getElementById('progressLabel');
+function updateProgress(){
+  const total = checkItems.length;
+  const done = Array.from(checkItems).filter(c=>c.checked).length;
+  const pct = Math.round((done/total)*100);
+  fill.style.width = pct + '%';
+  label.textContent = `${pct}% de tu cocina lista`;
+}
+checkItems.forEach(c=>{
+  c.addEventListener('change', ()=>{
+    c.closest('.check-item').classList.toggle('done', c.checked);
+    updateProgress();
+  });
+});
+
+// ---------- ingredient checklists in all recipe cards ----------
+document.querySelectorAll('.ing-list li').forEach(li=>{
+  const cb = li.querySelector('input');
+  li.addEventListener('click', (e)=>{
+    if(e.target !== cb) cb.checked = !cb.checked;
+    li.classList.toggle('checked', cb.checked);
+  });
+});
+</script>
+</body>
+</html>
